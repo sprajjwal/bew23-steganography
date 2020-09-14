@@ -1,5 +1,4 @@
-from PIL import Image
-
+from PIL import Image, ImageDraw, ImageFont
 
 def decode_image(path_to_png):
   """
@@ -16,7 +15,7 @@ def decode_image(path_to_png):
   pixels = decoded_image.load()
   x_size, y_size = encoded_image.size
 
-  # TODO: Using the variables declared above, replace `print(red_channel)` with a complete implementation:
+  #  Using the variables declared above, replace `print(red_channel)` with a complete implementation:
   for x in range(x_size):
     for y in range(y_size):
       if red_channel.getpixel((x, y)) & 1: 
@@ -33,7 +32,18 @@ def encode_image(path_to_png):
   """
   TODO: Add docstring and complete implementation.
   """
-  pass
+  img = write_text((1000, 1000), 'hello world')
+  img.save(path_to_png)
+
+def write_text(size, text):
+  """
+  Writes a text in black to a white image and returns it.
+  """
+  img = Image.new('RGB', size, (255, 255, 255))
+  draw = ImageDraw.Draw(img)
+  font = ImageFont.truetype('/Library/Fonts/Arial.ttf', size)
+  draw.text((10,10), text, (0, 0, 0), font=font)
+  return img
 
 
-decode_image('es.png')
+encode_image("encoded.png")
